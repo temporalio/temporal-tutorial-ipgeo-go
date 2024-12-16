@@ -1,3 +1,4 @@
+// @@@SNIPSTART go-ipgeo-workflow-imports
 package iplocate
 
 import (
@@ -7,6 +8,9 @@ import (
 	"time"
 )
 
+// @@@SNIPEND
+
+// @@@SNIPSTART go-ipgeo-workflow-code
 // GetAddressFromIP is the Temporal Workflow that retrieves the IP address and location info.
 func GetAddressFromIP(ctx workflow.Context, name string) (string, error) {
 	// Define the activity options, including the retry policy
@@ -37,3 +41,5 @@ func GetAddressFromIP(ctx workflow.Context, name string) (string, error) {
 
 	return fmt.Sprintf("Hello, %s. Your IP is %s and your location is %s", name, ip, location), nil
 }
+
+// @@@SNIPEND

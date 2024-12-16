@@ -1,3 +1,4 @@
+// @@@SNIPSTART go-ipgeo-activity-setup
 package iplocate
 
 import (
@@ -16,6 +17,9 @@ type IPActivities struct {
 	HTTPClient HTTPGetter
 }
 
+// @@@SNIPEND
+
+// @@@SNIPSTART go-ipgeo-activity-ip
 // GetIP fetches the public IP address.
 func (i *IPActivities) GetIP() (string, error) {
 	resp, err := i.HTTPClient.Get("https://icanhazip.com")
@@ -33,6 +37,9 @@ func (i *IPActivities) GetIP() (string, error) {
 	return ip, nil
 }
 
+// @@@SNIPEND
+
+// @@@SNIPSTART go-ipgeo-activity-location
 // GetLocationInfo uses the IP address to fetch location information.
 func (i *IPActivities) GetLocationInfo(ip string) (string, error) {
 	url := fmt.Sprintf("http://ip-api.com/json/%s", ip)
@@ -60,3 +67,5 @@ func (i *IPActivities) GetLocationInfo(ip string) (string, error) {
 
 	return fmt.Sprintf("%s, %s, %s", data.City, data.RegionName, data.Country), nil
 }
+
+// @@@SNIPEND

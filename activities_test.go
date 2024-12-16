@@ -1,3 +1,4 @@
+// @@@SNIPSTART go-ipgeo-activity-test-setup
 package iplocate_test
 
 import (
@@ -17,6 +18,9 @@ func (m *MockHTTPClient) Get(url string) (*http.Response, error) {
 	return m.Response, m.Err
 }
 
+// @@@SNIPEND
+
+// @@@SNIPSTART go-ipgeo-activity-test-ip
 // TestGetIP tests the GetIP activity with a mock server.
 func TestGetIP(t *testing.T) {
 	// Create a mock server that returns the fake IP address
@@ -43,6 +47,9 @@ func TestGetIP(t *testing.T) {
 	}
 }
 
+// @@@SNIPEND
+
+// @@@SNIPSTART go-ipgeo-activity-test-location
 // TestGetLocationInfo tests the GetLocationInfo activity with a mock server.
 func TestGetLocationInfo(t *testing.T) {
 	mockResponse := &http.Response{
@@ -69,3 +76,5 @@ func TestGetLocationInfo(t *testing.T) {
 		t.Errorf("Expected location %v, got %v", expectedLocation, location)
 	}
 }
+
+// @@@SNIPEND

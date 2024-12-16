@@ -27,7 +27,7 @@ func initializeTemporal() error {
 
 // Start the Temporal Workflow
 func startWorkflow(name string) (string, error) {
-	workflowID := "workflow-" + uuid.New().String()
+	workflowID := "getAddressFromIP-" + uuid.New().String()
 	options := client.StartWorkflowOptions{
 		ID:        workflowID,
 		TaskQueue: "your-task-queue",

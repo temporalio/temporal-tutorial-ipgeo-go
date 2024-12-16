@@ -1,3 +1,4 @@
+// @@@SNIPSTART go-ipgeo-worker
 package main
 
 import (
@@ -18,13 +19,14 @@ func main() {
 	defer c.Close()
 
 	// Create the Temporal worker
-	w := worker.New(c, "your-task-queue", worker.Options{})
+	w := worker.New(c, iplocate.TaskQueueName, worker.Options{})
 
-	// inject HTTP client into the activities
+	// inject HTTP client into the Activities Struct
 	activities := &iplocate.IPActivities{
 		HTTPClient: http.DefaultClient,
 	}
 
+	// Register Workflow and Activities
 	w.RegisterWorkflow(iplocate.GetAddressFromIP)
 	w.RegisterActivity(activities)
 
@@ -34,3 +36,5 @@ func main() {
 		log.Fatalln("Unable to start Temporal worker", err)
 	}
 }
+
+// @@@SNIPEND
