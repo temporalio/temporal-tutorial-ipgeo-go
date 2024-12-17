@@ -5,8 +5,8 @@ import (
 	"iplocate"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-	"github.com/stretchr/testify/require"
 
 	"go.temporal.io/sdk/testsuite"
 )
@@ -27,9 +27,8 @@ func Test_Workflow(t *testing.T) {
 	env.ExecuteWorkflow(iplocate.GetAddressFromIP, "Temporal")
 
 	var result string
-	require.NoError(t, env.GetWorkflowResult(&result))
-
-	require.Equal(t, "Hello, Temporal. Your IP is 1.1.1.1 and your location is Planet Earth", result)
+	assert.NoError(t, env.GetWorkflowResult(&result))
+	assert.Equal(t, "Hello, Temporal. Your IP is 1.1.1.1 and your location is Planet Earth", result)
 }
 
 // @@@SNIPEND

@@ -6,6 +6,7 @@ toolchain go1.22.5
 
 require (
 	github.com/google/uuid v1.6.0
+	github.com/stretchr/testify v1.9.0
 	go.temporal.io/sdk v1.28.1
 )
 
@@ -21,7 +22,6 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/robfig/cron v1.2.0 // indirect
 	github.com/stretchr/objx v0.5.2 // indirect
-	github.com/stretchr/testify v1.9.0 // indirect
 	go.temporal.io/api v1.36.0 // indirect
 	golang.org/x/exp v0.0.0-20231127185646-65229373498e // indirect
 	golang.org/x/net v0.27.0 // indirect
