@@ -2,6 +2,7 @@
 package iplocate
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -21,7 +22,7 @@ type IPActivities struct {
 
 // @@@SNIPSTART go-ipgeo-activity-ip
 // GetIP fetches the public IP address.
-func (i *IPActivities) GetIP() (string, error) {
+func (i *IPActivities) GetIP(ctx context.Context) (string, error) {
 	resp, err := i.HTTPClient.Get("https://icanhazip.com")
 	if err != nil {
 		return "", err
@@ -41,7 +42,7 @@ func (i *IPActivities) GetIP() (string, error) {
 
 // @@@SNIPSTART go-ipgeo-activity-location
 // GetLocationInfo uses the IP address to fetch location information.
-func (i *IPActivities) GetLocationInfo(ip string) (string, error) {
+func (i *IPActivities) GetLocationInfo(ctx context.Context, ip string) (string, error) {
 	url := fmt.Sprintf("http://ip-api.com/json/%s", ip)
 	resp, err := i.HTTPClient.Get(url)
 	if err != nil {

@@ -2,6 +2,8 @@
 package iplocate_test
 
 import (
+	"github.com/stretchr/testify/assert"
+	"go.temporal.io/sdk/testsuite"
 	"io"
 	"iplocate"
 	"net/http"
@@ -23,28 +25,35 @@ func (m *MockHTTPClient) Get(url string) (*http.Response, error) {
 // @@@SNIPSTART go-ipgeo-activity-test-ip
 // TestGetIP tests the GetIP activity with a mock server.
 func TestGetIP(t *testing.T) {
-	// Create a mock server that returns the fake IP address
+	// set up test environment
+	testSuite := &testsuite.WorkflowTestSuite{}
+	env := testSuite.NewTestActivityEnvironment()
 
+	// Create a mock response that returns the fake IP address
 	mockResponse := &http.Response{
 		StatusCode: 200,
 		Body:       io.NopCloser(strings.NewReader("127.0.0.1\n")),
 	}
 
-	ipActivities := iplocate.IPActivities{
+	// load Activities and inject mock response
+	ipActivities := &iplocate.IPActivities{
 		HTTPClient: &MockHTTPClient{Response: mockResponse},
 	}
+	env.RegisterActivity(ipActivities)
 
 	// Call the GetIP function
-	ip, err := ipActivities.GetIP()
+	val, err := env.ExecuteActivity(ipActivities.GetIP)
 	if err != nil {
 		t.Fatalf("Expected no error, got %v", err)
 	}
 
+	// get the Activity result
+	var ip string
+	val.Get(&ip)
+
 	// Validate the returned IP
 	expectedIP := "127.0.0.1"
-	if ip != expectedIP {
-		t.Fatalf("Expected IP to be '%s', but got '%s'", expectedIP, ip)
-	}
+	assert.Equal(t, ip, expectedIP)
 }
 
 // @@@SNIPEND
@@ -52,6 +61,10 @@ func TestGetIP(t *testing.T) {
 // @@@SNIPSTART go-ipgeo-activity-test-location
 // TestGetLocationInfo tests the GetLocationInfo activity with a mock server.
 func TestGetLocationInfo(t *testing.T) {
+	// set up test environment
+	testSuite := &testsuite.WorkflowTestSuite{}
+	env := testSuite.NewTestActivityEnvironment()
+
 	mockResponse := &http.Response{
 		StatusCode: 200,
 		Body: io.NopCloser(strings.NewReader(`{
@@ -61,20 +74,23 @@ func TestGetLocationInfo(t *testing.T) {
         }`)),
 	}
 
-	ipActivities := iplocate.IPActivities{
+	ipActivities := &iplocate.IPActivities{
 		HTTPClient: &MockHTTPClient{Response: mockResponse},
 	}
 
+	env.RegisterActivity(ipActivities)
+
 	ip := "127.0.0.1"
-	location, err := ipActivities.GetLocationInfo(ip)
+	val, err := env.ExecuteActivity(ipActivities.GetLocationInfo, ip)
 	if err != nil {
 		t.Fatalf("Expected no error, got %v", err)
 	}
 
+	var location string
+	val.Get(&location)
+
 	expectedLocation := "San Francisco, California, United States"
-	if location != expectedLocation {
-		t.Errorf("Expected location %v, got %v", expectedLocation, location)
-	}
+	assert.Equal(t, location, expectedLocation)
 }
 
 // @@@SNIPEND

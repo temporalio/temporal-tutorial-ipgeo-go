@@ -5,6 +5,7 @@ import (
 	"iplocate"
 	"testing"
 
+	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
 	"go.temporal.io/sdk/testsuite"
@@ -20,8 +21,8 @@ func Test_Workflow(t *testing.T) {
 	activities := &iplocate.IPActivities{}
 
 	// Mock activity implementation
-	env.OnActivity(activities.GetIP).Return("1.1.1.1", nil)
-	env.OnActivity(activities.GetLocationInfo, "1.1.1.1").Return("Planet Earth", nil)
+	env.OnActivity(activities.GetIP, mock.Anything).Return("1.1.1.1", nil)
+	env.OnActivity(activities.GetLocationInfo, mock.Anything, "1.1.1.1").Return("Planet Earth", nil)
 
 	env.ExecuteWorkflow(iplocate.GetAddressFromIP, "Temporal")
 
