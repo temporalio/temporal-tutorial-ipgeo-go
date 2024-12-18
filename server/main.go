@@ -7,11 +7,10 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+	"temporal-ip-geolocation/iplocate"
 
 	"github.com/google/uuid"
 	"go.temporal.io/sdk/client"
-
-	"iplocate"
 )
 
 var temporalClient client.Client

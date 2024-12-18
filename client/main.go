@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"go.temporal.io/sdk/client"
-	"iplocate"
 	"log"
 	"os"
+	"temporal-ip-geolocation/iplocate"
 )
 
 func main() {

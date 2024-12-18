@@ -2,9 +2,9 @@
 package main
 
 import (
-	"iplocate"
 	"log"
 	"net/http"
+	"temporal-ip-geolocation/iplocate"
 
 	"go.temporal.io/sdk/client"
 	"go.temporal.io/sdk/worker"
