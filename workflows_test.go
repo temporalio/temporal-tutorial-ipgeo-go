@@ -2,8 +2,9 @@
 package iplocate_test
 
 import (
-	"iplocate"
 	"testing"
+
+	"temporal-ip-geolocation/iplocate"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"

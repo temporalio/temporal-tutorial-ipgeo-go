@@ -4,11 +4,13 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/google/uuid"
-	"go.temporal.io/sdk/client"
 	"log"
 	"os"
+
 	"temporal-ip-geolocation/iplocate"
+
+	"github.com/google/uuid"
+	"go.temporal.io/sdk/client"
 )
 
 func main() {

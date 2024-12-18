@@ -2,13 +2,15 @@
 package iplocate_test
 
 import (
-	"github.com/stretchr/testify/assert"
-	"go.temporal.io/sdk/testsuite"
 	"io"
-	"iplocate"
 	"net/http"
 	"strings"
 	"testing"
+
+	"temporal-ip-geolocation/iplocate"
+
+	"github.com/stretchr/testify/assert"
+	"go.temporal.io/sdk/testsuite"
 )
 
 type MockHTTPClient struct {
