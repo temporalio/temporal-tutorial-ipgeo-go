@@ -30,7 +30,7 @@ func startWorkflow(name string) (string, error) {
 	workflowID := "getAddressFromIP-" + uuid.New().String()
 	options := client.StartWorkflowOptions{
 		ID:        workflowID,
-		TaskQueue: "your-task-queue",
+		TaskQueue: iplocate.TaskQueueName,
 	}
 
 	we, err := temporalClient.ExecuteWorkflow(context.Background(), options, iplocate.GetAddressFromIP, name)
